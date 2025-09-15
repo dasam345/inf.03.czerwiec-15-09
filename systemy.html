@@ -56,7 +56,37 @@
         <p id="wynik">Brak obliczeń</p>
         
         <script>
+                function Przelicz() {
+                let liczbaDziesietna = document.getElementById('liczba').value;
+                let wynikElement = document.getElementById('wynik');
 
+                if (liczbaDziesietna === "" || isNaN(liczbaDziesietna)) {
+                    wynikElement.innerHTML = "Proszę wpisać poprawną liczbę!";
+                    return;
+                }
+
+                let liczba = Math.floor(Math.abs(Number(liczbaDziesietna)));
+
+                if (liczba === 0) {
+                    wynikElement.innerHTML = "0 <sub>(2)</sub>";
+                    return;
+                }
+
+                let binarny = "";
+                while (liczba > 0) {
+                    binarny = (liczba % 2) + binarny;
+                    liczba = Math.floor(liczba / 2);
+                }
+
+                let binarnyGrupowany = "";
+                for (let i = binarny.length; i > 0; i -= 4) {
+                    let start = Math.max(i - 4, 0);
+                    let grupa = binarny.substring(start, i);
+                    binarnyGrupowany = grupa + (binarnyGrupowany ? " " + binarnyGrupowany : "");
+                }
+
+                wynikElement.innerHTML = binarnyGrupowany + ' <sub>(2)</sub>';
+            }
         </script>
 
     </main>
@@ -74,7 +104,7 @@
             </dl>
     </div>
 <footer>
-Wykonał: Damian Szczegielniak
+    Stronę Opracował: Damian Szczegielniak
 </footer>
 </body>
 </html>
